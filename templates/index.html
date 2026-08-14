@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI - AI-Powered Resume & ATS Analyzer</title>
+    <!-- Premium Font Family: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN for Professional Analytics Graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- ======================================================== -->
+    <!--                   1. LANDING PAGE VIEW                   -->
+    <!-- ======================================================== -->
+    <div id="viewLanding" class="view">
+        <header class="navbar">
+            <div class="brand">
+                <span class="logo-icon">🚀</span>
+                <h2>ResumeAI</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <button class="btn btn-outline" onclick="showView('Auth', 'login')">Sign In</button>
+            </nav>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="badge-tag">⚡ Powered by Llama 3.3 & Groq</span>
+                <h1>Optimize Your Resume to <span class="gradient-text">Beat The ATS</span></h1>
+                <p class="hero-desc">Instantly scan your resume with AI recruiter models. Reveal missing industry keywords, calculate scoring metrics, and bypass automatic recruitment filters.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-large" onclick="showView('Auth', 'signup')">Create Free Account</button>
+                    <a href="#features" class="btn btn-secondary btn-large">Explore Features</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <h3>98.2%</h3>
+                        <p>ATS Match Accuracy</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-box">
+                        <h3>< 5 Sec</h3>
+                        <p>Evaluation Speed</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-box">
+                        <h3>Free</h3>
+                        <p>Developer Tier</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-graphic-container">
+                <!-- Visual glass card mockup of dashboard -->
+                <div class="mockup-card">
+                    <div class="mockup-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="mockup-title">resume_evaluation_report.pdf</span>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-score-row">
+                            <div class="mockup-radial">
+                                <h3>87</h3>
+                                <span>ATS Score</span>
+                            </div>
+                            <div class="mockup-verdict">
+                                <h4>Strong Match!</h4>
+                                <p>Highly aligned with technical criteria.</p>
+                            </div>
+                        </div>
+                        <div class="mockup-tags">
+                            <span class="mockup-tag">Docker</span>
+                            <span class="mockup-tag">CI/CD</span>
+                            <span class="mockup-tag">Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ======================================================== -->
+    <!--                  2. AUTHENTICATION VIEW                  -->
+    <!-- ======================================================== -->
+    <div id="viewAuth" class="view hidden">
+        <div class="auth-wrapper">
+            <div class="auth-graphic">
+                <div class="brand">
+                    <span class="logo-icon">🚀</span>
+                    <h2>ResumeAI</h2>
+                </div>
+                <h3>Accelerate Your Career Progress</h3>
+                <p>Register to preserve your resume history, plot score trends, and access premium optimization recommendations.</p>
+                <div class="feature-bullets">
+                    <div class="bullet"><span class="check">✓</span> <span>Save up to 15 resume evaluations</span></div>
+                    <div class="bullet"><span class="check">✓</span> <span>AI key competency extraction</span></div>
+                    <div class="bullet"><span class="check">✓</span> <span>Custom keyword improvement guides</span></div>
+                </div>
+            </div>
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button id="tabBtnLogin" class="auth-tab-btn active" onclick="switchAuthTab('login')">Sign In</button>
+                    <button id="tabBtnSignup" class="auth-tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <h2>Welcome Back</h2>
+                    <p class="form-sub">Enter credentials to view your evaluations.</p>
+                    <div class="input-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signupForm" class="auth-form hidden">
+                    <h2>Create Account</h2>
+                    <p class="form-sub">Sign up for a free developer account today.</p>
+                    <div class="input-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Minimum 6 characters" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+                
+                <button class="btn btn-text text-center" onclick="showView('Landing')">← Back to Homepage</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!--                  3. APPLICATION DASHBOARD VIEW            -->
+    <!-- ======================================================== -->
+    <div id="viewApp" class="view hidden">
+        <div class="app-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="app-sidebar">
+                <div class="brand">
+                    <span class="logo-icon">🚀</span>
+                    <h2>ResumeAI</h2>
+                </div>
+                
+                <div class="user-profile-badge">
+                    <div class="avatar">U</div>
+                    <div class="profile-details">
+                        <span id="userEmailLabel" class="user-email">user@domain.com</span>
+                        <span class="user-plan">Free Developer Tier</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" onclick="switchAppTab('dashboard')">
+                        <span class="nav-icon">📊</span> Dashboard
+                    </button>
+                    <button class="nav-item" onclick="switchAppTab('upload')">
+                        <span class="nav-icon">📤</span> Scan Resume
+                    </button>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button class="btn btn-outline btn-logout" id="logoutBtn">Log Out</button>
+                </div>
+            </aside>
+
+            <!-- Main Content panel -->
+            <main class="app-main">
+                
+                <!-- Tab: Dashboard Overview -->
+                <div id="tabDashboard" class="app-tab-content">
+                    <header class="app-header">
+                        <div>
+                            <h1>Welcome Back</h1>
+                            <p class="subtitle">Here is an overview of your resume matching evaluations.</p>
+                        </div>
+                    </header>
+
+                    <!-- Metrics Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-icon">📄</span>
+                            <div>
+                                <span class="metric-title">Total Scans</span>
+                                <h3 id="statTotalScans">0</h3>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-icon">📈</span>
+                            <div>
+                                <span class="metric-title">Average ATS Score</span>
+                                <h3 id="statAvgScore">0%</h3>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-icon">🏆</span>
+                            <div>
+                                <span class="metric-title">Highest Score</span>
+                                <h3 id="statMaxScore">0%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layout: Analytics Graph & Upload History -->
+                    <div class="app-grid">
+                        <!-- Chart container -->
+                        <div class="card chart-card">
+                            <h2>ATS Performance History</h2>
+                            <p class="section-desc">Progress score metrics plotted over recent evaluation runs.</p>
+                            <div class="chart-container">
+                                <canvas id="atsTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar History table -->
+                        <div class="card history-card">
+                            <h2>Recent Evaluations</h2>
+                            <p class="section-desc">Select an entry below to review details.</p>
+                            <div id="appHistoryList" class="dashboard-history-list">
+                                <p class="empty-state">No evaluations run yet. Scan a resume to begin!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Upload and Scan Resume -->
+                <div id="tabUpload" class="app-tab-content hidden">
+                    <header class="app-header">
+                        <div>
+                            <h1>Scan Resume</h1>
+                            <p class="subtitle">Upload a PDF resume to generate keyword optimizations and feedback.</p>
+                        </div>
+                    </header>
+
+                    <div class="scan-grid">
+                        <!-- Left: File Upload & Processing -->
+                        <div class="card scan-card">
+                            <h2>File Upload</h2>
+                            <p class="section-desc">Select your file in PDF format (Max 5MB)</p>
+                            
+                            <form id="appUploadForm">
+                                <div class="drop-zone" id="appDropZone">
+                                    <span class="drop-zone__icon">📂</span>
+                                    <span class="drop-zone__prompt">Drag & drop your PDF file here or <span class="browse-link">Browse files</span></span>
+                                    <input type="file" name="file" id="appFileInput" class="drop-zone__input" accept=".pdf">
+                                </div>
+                                <button type="submit" id="appAnalyzeBtn" class="btn btn-primary" disabled>Analyze Resume</button>
+                            </form>
+
+                            <!-- Loading Card Inside upload flow -->
+                            <div class="loading-overlay hidden" id="appLoadingState">
+                                <div class="spinner-container">
+                                    <div class="spinner"></div>
+                                </div>
+                                <h3 id="appLoadingText">Extracting PDF text...</h3>
+                                <p>This may take up to 5 seconds depending on file content.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Active Analysis Output -->
+                        <div class="card app-results-card hidden" id="appResultsCard">
+                            <div class="results-header">
+                                <h2>ATS Feedback Report</h2>
+                                <span class="file-badge" id="appResultsFilename">filename.pdf</span>
+                            </div>
+
+                            <div class="score-display">
+                                <div class="radial-progress" id="appScoreMeter" data-score="0">
+                                    <div class="inner-circle">
+                                        <span class="score-value" id="appScoreValue">0</span>
+                                        <span class="score-label">ATS Score</span>
+                                    </div>
+                                </div>
+                                <div class="score-metric-desc">
+                                    <h3 id="appScoreVerdict">Evaluating...</h3>
+                                    <p id="appScoreSummary">Your resume score will be displayed here shortly.</p>
+                                </div>
+                            </div>
+
+                            <div class="results-details">
+                                <div class="results-group">
+                                    <h3>Missing Keywords</h3>
+                                    <p class="group-desc">Add these terms to align with search algorithms:</p>
+                                    <div class="keywords-list" id="appKeywordsList">
+                                        <!-- Dynamic tags -->
+                                    </div>
+                                </div>
+
+                                <div class="results-group">
+                                    <h3>Actionable Suggestions</h3>
+                                    <p class="group-desc">Apply these recommendations to improve readability:</p>
+                                    <ul class="suggestions-list" id="appSuggestionsList">
+                                        <!-- Dynamic items -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- main.js -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
